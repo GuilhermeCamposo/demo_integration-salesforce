@@ -1,0 +1,103 @@
+{
+  "opportunity": {
+    "new": [{
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v53.0/sobjects/Opportunity/0065f000002NcB9AAK"
+      },
+      "LastModifiedDate": "2021-11-04T14:17:17.000+0000",
+      "LastCloseDateChangedHistoryId": "0085f000003devrAAA",
+      "AccountId": "0015f000008ipYkAAI",
+      "HasOpportunityLineItem": true,
+      "ForecastCategory": "Pipeline",
+      "IsClosed": false,
+      "CloseDate": "2021-11-02",
+      "Name": "fast opp",
+      "HasOpenActivity": false,
+      "TotalOpportunityQuantity": 201.00,
+      "LastAmountChangedHistoryId": "0085f000003dcc6AAA",
+      "ExpectedRevenue": 20005000.00,
+      "CreatedById": "0055f0000040M92AAE",
+      "OwnerId": "0055f0000040M92AAE",
+      "IsWon": false,
+      "IsDeleted": false,
+      "StageName": "Proposal/Price Quote",
+      "Amount": 20005000.00,
+      "Probability": 75,
+      "SystemModstamp": "2021-11-04T14:17:17.000+0000",
+      "LastStageChangeDate": "2021-11-04T14:17:17.000+0000",
+      "CreatedDate": "2021-10-20T17:17:59.000+0000",
+      "HasOverdueTask": false,
+      "LastActivityDate": "2021-10-20",
+      "Pricebook2Id": "01s5f000005CdIjAAK",
+      "Id": "0065f000002NcB9AAK",
+      "ForecastCategoryName": "Pipeline",
+      "IsPrivate": false,
+      "LastModifiedById": "0055f0000040M92AAE"
+    }],
+    "old": [{
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v53.0/sobjects/Opportunity/0065f000002NcB9AAK"
+      },
+      "LastModifiedDate": "2021-11-04T14:17:17.000+0000",
+      "LastCloseDateChangedHistoryId": "0085f000003devrAAA",
+      "AccountId": "0015f000008ipYkAAI",
+      "HasOpportunityLineItem": true,
+      "ForecastCategory": "Closed",
+      "IsClosed": true,
+      "CloseDate": "2021-11-02",
+      "Name": "fast opp",
+      "HasOpenActivity": false,
+      "TotalOpportunityQuantity": 201.00,
+      "LastAmountChangedHistoryId": "0085f000003dcc6AAA",
+      "ExpectedRevenue": 20005000.00,
+      "CreatedById": "0055f0000040M92AAE",
+      "OwnerId": "0055f0000040M92AAE",
+      "IsWon": true,
+      "IsDeleted": false,
+      "StageName": "Closed Won",
+      "Amount": 20005000.00,
+      "Probability": 100,
+      "SystemModstamp": "2021-11-04T14:17:17.000+0000",
+      "LastStageChangeDate": "2021-11-04T14:17:17.000+0000",
+      "CreatedDate": "2021-10-20T17:17:59.000+0000",
+      "HasOverdueTask": false,
+      "LastActivityDate": "2021-10-20",
+      "Pricebook2Id": "01s5f000005CdIjAAK",
+      "Id": "0065f000002NcB9AAK",
+      "ForecastCategoryName": "Closed",
+      "IsPrivate": false,
+      "LastModifiedById": "0055f0000040M92AAE"
+    }],
+    "userId": "0055f0000040M92AAE"
+  },
+  "account": {
+    "attributes": {
+      "type": "Account",
+      "url": "/services/data/v52.0/sobjects/Account/0015f000008ipYkAAI"
+    },
+    "Id": "0015f000008ipYkAAI",
+    "Name": "Test Account",
+    "AccountNumber": "2432423"
+  },
+  "lineItems": [{
+    "attributes": {
+      "type": "OpportunityLineItem",
+      "url": "/services/data/v52.0/sobjects/OpportunityLineItem/00k5f00000YICmnAAH"
+    },
+    "Id": "00k5f00000YICmnAAH",
+    "Name": "fast opp GenWatt Diesel 1000kW",
+    "Quantity": 200.0
+  },
+    {
+      "attributes": {
+        "type": "OpportunityLineItem",
+        "url": "/services/data/v52.0/sobjects/OpportunityLineItem/00k5f00000YICmoAAH"
+      },
+      "Id": "00k5f00000YICmoAAH",
+      "Name": "fast opp GenWatt Diesel 10kW",
+      "Quantity": 1.0
+    }
+  ]
+}
