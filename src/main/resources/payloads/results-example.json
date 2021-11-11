@@ -1,6 +1,7 @@
 {
   "opportunity": {
-    "new": [{
+    "new": [
+      {
       "attributes": {
         "type": "Opportunity",
         "url": "/services/data/v53.0/sobjects/Opportunity/0065f000002NcB9AAK"
@@ -35,7 +36,8 @@
       "IsPrivate": false,
       "LastModifiedById": "0055f0000040M92AAE"
     }],
-    "old": [{
+    "old": [
+      {
       "attributes": {
         "type": "Opportunity",
         "url": "/services/data/v53.0/sobjects/Opportunity/0065f000002NcB9AAK"
@@ -81,7 +83,8 @@
     "Name": "Test Account",
     "AccountNumber": "2432423"
   },
-  "lineItems": [{
+  "lineItems": [
+    {
     "attributes": {
       "type": "OpportunityLineItem",
       "url": "/services/data/v52.0/sobjects/OpportunityLineItem/00k5f00000YICmnAAH"
