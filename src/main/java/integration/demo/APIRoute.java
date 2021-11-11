@@ -1,13 +1,11 @@
 package integration.demo;
 
-
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
 
 public class APIRoute extends RouteBuilder {
-
 
     @Override
     public void configure() throws Exception{
@@ -17,7 +15,6 @@ public class APIRoute extends RouteBuilder {
         rest("/opportunities")
             .post()
                 .consumes("application/json")
-                .produces("application/json")
                 .route()
                     .routeId("opportunityPost")
                     .setProperty("oppWebhook", simple("${body}"))
@@ -42,7 +39,10 @@ public class APIRoute extends RouteBuilder {
                     .setHeader("q", simple("{{sf.query.lineItems}}='${exchangeProperty.opportunityId}'"))
                     .to("salesforce:raw?format=JSON&rawMethod=GET&rawQueryParameters=q&rawPath={{sf.url.path}}")
                     .setProperty("lineItemsInfo").jsonpathWriteAsString("$.records")
-                    .setBody(simple(" { \"opportunity\" : ${exchangeProperty.oppWebhook}, \"itemLines\" : ${exchangeProperty.lineItemsInfo},  \"account\" : ${exchangeProperty.accountInfo} }"))
+                    .setBody(simple(" { \"opportunity\" : ${exchangeProperty.oppWebhook}, \"lineItems\" : ${exchangeProperty.lineItemsInfo},  \"account\" : ${exchangeProperty.accountInfo} }"))
+                    .log("Sending -> ${body}")
+                    .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+                    .to("vertx-http:{{asana.adapter.url}}/asanaAdapter")
         .endRest();
 
     }

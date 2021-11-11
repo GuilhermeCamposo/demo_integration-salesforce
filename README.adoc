@@ -1,0 +1,16 @@
+= Salesforce Webhook Ingestor
+
+
+== How to build with OpenShift
+----
+oc new-build java:openjdk-11-el7~https://gitlab.com/rhi-demo/salesforce-webhook-ingestor.git
+oc patch bc/salesforce-webhook-ingestor -p '{"spec":{ "strategy":{ "sourceStrategy":{ "incremental": true } } }}'
+----
+
+== Required environment variables
+
+SF_CLIENT_ID
+SF_CLIENT_SECRET
+SF_USERNAME
+SF_PASSWORD
+SF_INSTANCE

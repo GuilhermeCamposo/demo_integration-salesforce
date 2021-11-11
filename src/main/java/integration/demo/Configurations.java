@@ -8,10 +8,10 @@ import javax.inject.Named;
 @ApplicationScoped
 public class Configurations {
 
-    @ConfigProperty(name = "sf.clientId")
+    @ConfigProperty(name = "sf.client.id")
     String clientId;
 
-    @ConfigProperty(name = "sf.clientSecret")
+    @ConfigProperty(name = "sf.client.secret")
     String clientSecret;
 
     @ConfigProperty(name = "sf.username")
