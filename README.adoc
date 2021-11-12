@@ -9,8 +9,12 @@ oc patch bc/salesforce-webhook-ingestor -p '{"spec":{ "strategy":{ "sourceStrate
 
 == Required environment variables
 
-. SF_CLIENT_ID
-. SF_CLIENT_SECRET
-. SF_USERNAME
-. SF_PASSWORD
-. SF_INSTANCE
+[options="header"]
+|=======================
+| Variable | Example Value                                      | Definition
+| SF_CLIENT_ID | |
+| SF_CLIENT_SECRET | |
+| SF_USERNAME | |
+| SF_PASSWORD | |
+| SF_INSTANCE | |
+| AB_JOLOKIA_OFF | true | Jolokia doesn't work with Quarkus
