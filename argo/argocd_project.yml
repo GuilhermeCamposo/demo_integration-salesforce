@@ -12,8 +12,8 @@ spec:
     directory:
       recurse: true
     path: app
-    repoURL: https://gitlab.com/sabhaska/salesforce-webhook-ingestor.git
-    targetRevision: main
+    repoURL: https://gitlab.com/rhi-demo/salesforce-webhook-ingestor.git
+    targetRevision: develop
   syncPolicy:
     automated:
       prune: true
