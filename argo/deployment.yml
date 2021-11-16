@@ -9,7 +9,6 @@ metadata:
     app.kubernetes.io/name: salesforce-webhook-ingestor
     app.kubernetes.io/part-of: salesforce-webhook-ingestor
     app.openshift.io/runtime: camel
-    app.openshift.io/runtime-namespace: rhi-demo
     app.openshift.io/runtime-version: prod
 spec:
   replicas: 1
