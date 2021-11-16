@@ -18,9 +18,9 @@ oc patch bc/salesforce-webhook-ingestor -p '{"spec":{ "strategy":{ "sourceStrate
 | SF_PASSWORD | |
 | SF_INSTANCE | |
 | AB_JOLOKIA_OFF | true | Jolokia doesn't work with Quarkus
+|=======================
 
-
-== Create a secret for Salesforce Credentials
+== Create a secret for Salesforce credentials
 
 ----
 oc create secret generic salesforce-secret --from-literal=SF_CLIENT_ID= --from-literal=SF_CLIENT_SECRET= --from-literal=SF_USERNAME= --from-literal=SF_PASSWORD= --from-literal=SF_INSTANCE=

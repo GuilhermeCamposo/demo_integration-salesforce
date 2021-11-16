@@ -5,6 +5,7 @@ pom.xml.releaseBackup
 pom.xml.versionsBackup
 release.properties
 application-dev.properties
+salesforce-secret.yml
 
 # Eclipse
 .project
