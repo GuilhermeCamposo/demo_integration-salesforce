@@ -1,10 +1,6 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  annotations:
-    alpha.image.policy.openshift.io/resolve-names: '*'
-    image.openshift.io/triggers: >-
-      [{"from":{"kind":"ImageStreamTag","name":"salesforce-webhook-ingestor:prod","namespace":"rhi-demo"},"fieldPath":"spec.template.spec.containers[?(@.name==\"salesforce-webhook-ingestor\")].image","pause":"false"}]
   name: salesforce-webhook-ingestor
   namespace: rhi-demo
   labels:
@@ -48,6 +44,7 @@ spec:
           envFrom:
             - secretRef:
                 name: salesforce-secret
+          image: quay.io/gcamposo/salesforce-webhook-ingestor:1.0.0-SNAPSHOT
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
