@@ -2,7 +2,6 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: salesforce-webhook-ingestor
-  namespace: rhi-demo
   labels:
     app: salesforce-webhook-ingestor
     app.kubernetes.io/component: salesforce-webhook-ingestor
