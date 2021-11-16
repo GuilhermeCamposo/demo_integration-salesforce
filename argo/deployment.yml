@@ -3,7 +3,6 @@ apiVersion: apps/v1
 metadata:
   annotations:
     alpha.image.policy.openshift.io/resolve-names: '*'
-    deployment.kubernetes.io/revision: '3'
     image.openshift.io/triggers: >-
       [{"from":{"kind":"ImageStreamTag","name":"salesforce-webhook-ingestor:prod","namespace":"rhi-demo"},"fieldPath":"spec.template.spec.containers[?(@.name==\"salesforce-webhook-ingestor\")].image","pause":"false"}]
   name: salesforce-webhook-ingestor
