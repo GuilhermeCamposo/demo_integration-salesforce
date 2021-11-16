@@ -48,7 +48,6 @@ spec:
           envFrom:
             - secretRef:
                 name: salesforce-secret
-          image: salesforce-webhook-ingestor:prod
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
