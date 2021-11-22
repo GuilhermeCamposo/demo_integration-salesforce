@@ -20,8 +20,9 @@ spec:
       labels:
         app: salesforce-webhook-ingestor
         deploymentconfig: salesforce-webhook-ingestor
+        version: v1
       annotations:
-        openshift.io/generated-by: OpenShiftWebConsole
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
         - resources: {}
@@ -42,7 +43,7 @@ spec:
           envFrom:
             - secretRef:
                 name: salesforce-secret
-          image: quay.io/gcamposo/salesforce-webhook-ingestor:1.0.1
+          image: quay.io/gcamposo/salesforce-webhook-ingestor:1.0.2
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
