@@ -46,6 +46,7 @@ public class APIRoute extends RouteBuilder {
                     .setHeader("q", simple("{{sf.query.lineItems}}='${exchangeProperty.opportunityId}'"))
                     .to("salesforce:raw?format=JSON&rawMethod=GET&rawQueryParameters=q&rawPath={{sf.url.path}}")
                     .setProperty("lineItemsInfo").jsonpathWriteAsString("$.records")
+                    .to("micrometer:counter:get_account_details")
                     .setBody(simple(" { \"opportunity\" : ${exchangeProperty.oppWebhook}, \"lineItems\" : ${exchangeProperty.lineItemsInfo},  \"account\" : ${exchangeProperty.accountInfo} }"))
                     .log("Sending -> ${body}")
                     .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
