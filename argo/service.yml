@@ -8,6 +8,7 @@ spec:
   ports:
   - port: 8080
     protocol: TCP
+    name: HTTP
     targetPort: 8080
   selector:
     app: salesforce-webhook-ingestor
