@@ -50,7 +50,7 @@ public class APIRoute extends RouteBuilder {
                     .setBody(simple(" { \"opportunity\" : ${exchangeProperty.oppWebhook}, \"lineItems\" : ${exchangeProperty.lineItemsInfo},  \"account\" : ${exchangeProperty.accountInfo} }"))
                     .log("Sending -> ${body}")
                     .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
-                    .to("vertx-http:{{asana.adapter.url}}/asanaAdapter")
+                    .to("{{asana.adapter.url}}/asanaAdapter")
         .endRest();
 
     }
