@@ -25,3 +25,19 @@ oc patch bc/salesforce-webhook-ingestor -p '{"spec":{ "strategy":{ "sourceStrate
 ----
 oc create secret generic salesforce-secret --from-literal=SF_CLIENT_ID= --from-literal=SF_CLIENT_SECRET= --from-literal=SF_USERNAME= --from-literal=SF_PASSWORD= --from-literal=SF_INSTANCE=
 ----
+
+== Salesforce Configuration
+
+=== Create an Apex Trigger
+
+----
+Trigger rhi_demo_opportunity on Opportunity (after insert,after update,after delete,after undelete) {
+
+    String url = '3scale Product url + user_key';
+
+    String content = Webhook.jsonContent(Trigger.new, Trigger.old);
+
+    Webhook.callout(url, content);
+
+}
+----

@@ -25,7 +25,13 @@ spec:
         sidecar.istio.io/inject: "true"
     spec:
       containers:
-        - resources: {}
+        - resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "300Mi"
+              cpu: "200m"
           terminationMessagePath: /dev/termination-log
           name: salesforce-webhook-ingestor
           env:
@@ -43,7 +49,19 @@ spec:
           envFrom:
             - secretRef:
                 name: salesforce-secret
-          image: quay.io/gcamposo/salesforce-webhook-ingestor:1.0.3
+          image: quay.io/gcamposo/salesforce-webhook-ingestor:1.0.4
+          livenessProbe:
+            httpGet:
+              path: /q/health/live
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /q/health/ready
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 20
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
