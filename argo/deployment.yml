@@ -2,6 +2,11 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: salesforce-webhook-ingestor
+  annotations:
+    alpha.image.policy.openshift.io/resolve-names: '*'
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"asana-adapter"}]'
+    app.openshift.io/vcs-ref: ''
+    app.openshift.io/vcs-uri: 'https://gitlab.com/rhi-demo/salesforce-webhook-ingestor.git'
   labels:
     app: salesforce-webhook-ingestor
     app.kubernetes.io/component: salesforce-webhook-ingestor
