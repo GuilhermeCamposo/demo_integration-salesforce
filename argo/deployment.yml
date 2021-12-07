@@ -28,6 +28,9 @@ spec:
         version: v1
       annotations:
         sidecar.istio.io/inject: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/q/metrics"
     spec:
       containers:
         - resources:
