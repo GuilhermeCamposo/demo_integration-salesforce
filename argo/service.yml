@@ -10,5 +10,9 @@ spec:
     protocol: TCP
     name: http
     targetPort: 8080
+  - port: 15020
+    protocol: TCP
+    name: monitoring
+    targetPort: 15020
   selector:
     app: salesforce-webhook-ingestor
