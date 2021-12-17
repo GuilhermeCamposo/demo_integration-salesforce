@@ -3,6 +3,7 @@ kind: Service
 metadata:
   labels:
     app: salesforce-webhook-ingestor
+    demo: rhi-demo
   name: salesforce-webhook-ingestor
 spec:
   ports:

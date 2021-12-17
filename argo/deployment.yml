@@ -9,6 +9,7 @@ metadata:
     app.openshift.io/vcs-uri: 'https://gitlab.com/rhi-demo/salesforce-webhook-ingestor.git'
   labels:
     app: salesforce-webhook-ingestor
+    demo: rhi-demo
     app.kubernetes.io/component: salesforce-webhook-ingestor
     app.kubernetes.io/instance: salesforce-webhook-ingestor
     app.kubernetes.io/name: salesforce-webhook-ingestor
@@ -24,6 +25,7 @@ spec:
     metadata:
       labels:
         app: salesforce-webhook-ingestor
+        demo: rhi-demo
         deploymentconfig: salesforce-webhook-ingestor
         version: v1
       annotations:
