@@ -41,3 +41,7 @@ Trigger rhi_demo_opportunity on Opportunity (after insert,after update,after del
 
 }
 ----
+
+=== Add the URL to Remote Site Settings
+
+You need to allow the Apex Trigger to access the 3scale endpoint. To do that access: *Setup -> Remote Site Settings -> New Remote Site*.
