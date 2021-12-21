@@ -28,7 +28,14 @@ oc create secret generic salesforce-secret --from-literal=SF_CLIENT_ID= --from-l
 
 == Salesforce Configuration
 
+=== Create a Connected App
+
+In order to authenticate the application, an application must be created in Salesforce. Go to *Setup -> App Manager -> New Connected App* to create the new Application.
+Once you have it you will have access to the *SF_CLIENT_ID* and *SF_CLIENT_SECRET*.
+
 === Create an Apex Trigger
+
+An Apex Trigger will generate a webhook to the 3scale endpoint every time an Opportunity is altered. To do so, go to *Setup -> Object Manger -> Opportunity -> Triggers -> New*. You may use the following as a template:
 
 ----
 Trigger rhi_demo_opportunity on Opportunity (after insert,after update,after delete,after undelete) {
