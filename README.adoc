@@ -47,12 +47,65 @@ After creating the the connected app you need to allow self-authorization for th
 
 === Create an Apex Trigger
 
-An Apex Trigger will generate a webhook to the 3scale endpoint every time an Opportunity is altered. To do so, go to *Setup -> Object Manger -> Opportunity -> Triggers -> New*. You may use the following as a template:
+An Apex Trigger will generate a webhook to the 3scale endpoint every time an Opportunity is altered, but first we need to add an Apex Class to allow us to create webhooks. Go to *Setup -> Custom Code -> Apex Classes* and add a new class like this:
+
+----
+public class Webhook implements HttpCalloutMock {
+
+    public static HttpRequest request;
+    public static HttpResponse response;
+
+    public HTTPResponse respond(HTTPRequest req) {
+        request = req;
+        response = new HttpResponse();
+        response.setStatusCode(200);
+        return response;
+    }
+
+    public static String jsonContent(List<Object> triggerNew, List<Object> triggerOld) {
+        String newObjects = '[]';
+        if (triggerNew != null) {
+            newObjects = JSON.serialize(triggerNew);
+        }
+
+        String oldObjects = '[]';
+        if (triggerOld != null) {
+            oldObjects = JSON.serialize(triggerOld);
+        }
+
+        String userId = JSON.serialize(UserInfo.getUserId());
+
+        String content = '{"new": ' + newObjects + ', "old": ' + oldObjects + ', "userId": ' + userId + '}';
+        return content;
+    }
+
+    @future(callout=true)
+    public static void callout(String url, String content) {
+
+        if (Test.isRunningTest()) {
+            Test.setMock(HttpCalloutMock.class, new Webhook());
+        }
+
+        Http h = new Http();
+
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint(url);
+        req.setMethod('POST');
+        req.setHeader('Content-Type', 'application/json');
+        req.setBody(content);
+
+        h.send(req);
+    }
+
+}
+----
+
+Now you can create the trigger. Go to *Setup -> Object Manger -> Opportunity -> Triggers -> New*. You may use the following as a template:
 
 ----
 Trigger rhi_demo_opportunity on Opportunity (after insert,after update,after delete,after undelete) {
 
-    String url = '3scale Product url + user_key';
+    String url = '$3SCALE_PROJECT_URL?user_key=1234567890';
 
     String content = Webhook.jsonContent(Trigger.new, Trigger.old);
 
@@ -60,6 +113,10 @@ Trigger rhi_demo_opportunity on Opportunity (after insert,after update,after del
 
 }
 ----
+
+The $3SCALE_PROJECT_URL will look like: https://salesforce-webhook-ingestor-product-3scale-apicast-staging.apps.domain/opportunities.
+Do not forget the '/opportunities' path.
+
 
 === Add the URL to Remote Site Settings
 
