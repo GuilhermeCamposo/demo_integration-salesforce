@@ -17,13 +17,13 @@ oc patch bc/salesforce-webhook-ingestor -p '{"spec":{ "strategy":{ "sourceStrate
 
 [options="header"]
 |=======================
-| Variable | Example Value                                      | Definition
-| SF_CLIENT_ID | 31345254523huiunexabyxvaxajijiaxaex | The Connected App Consumer Key
+| Variable         | Example Value                                      | Definition
+| SF_CLIENT_ID     | 31345254523huiunexabyxvaxajijiaxaex | The Connected App Consumer Key
 | SF_CLIENT_SECRET | 31345254523huiunexabyxvaxajijiaxaex | The Connected App Consumer Secret
-| SF_USERNAME | user@email.com | user used to log in the Salesforce instance
-| SF_PASSWORD | passswordToken |  Salesforce instance user's password + security token
-| SF_INSTANCE | https://example-dev-ed.my.salesforce.com |  Your Dev instance created
-| AB_JOLOKIA_OFF | true | Jolokia doesn't work with Quarkus
+| SF_USERNAME      | user@email.com | user used to log in the Salesforce instance
+| SF_PASSWORD      | passswordToken |  Salesforce instance user's password + security token. If you don't have a security token you may generate a new one by resetting it.
+| SF_INSTANCE      | https://example-dev-ed.my.salesforce.com |  Your Dev instance created
+| AB_JOLOKIA_OFF   | true | Jolokia doesn't work with Quarkus
 |=======================
 
 == Create a secret for Salesforce credentials
@@ -36,12 +36,16 @@ oc create secret generic salesforce-secret --from-literal=SF_CLIENT_ID= --from-l
 
 To work with Salesforce you need to apply some configurations first. Here are the steps needed to connect to Salesforce successfully.
 
+=== [Optional] Create a Salesforce Developer Account
+
+https://developer.salesforce.com/
+
 === Create a Connected App
 
 In order to authenticate the application, an application must be created in Salesforce. Go to *Setup -> App Manager -> New Connected App* to create the new Application.
-Once you have it you will have access to the *SF_CLIENT_ID* and *SF_CLIENT_SECRET*.
+You must enable oauth settings to have access to the *SF_CLIENT_ID* and *SF_CLIENT_SECRET*.
 
-=== Permite users to self-authorize
+=== Permit users to self-authorize
 
 After creating the the connected app you need to allow self-authorization for this app. Go to *Setup -> Apps -> Connected Apps -> Managed Connected Apps -> edit your app*. Set the *Permitted Users* to *All user may self-authorize*.
 
