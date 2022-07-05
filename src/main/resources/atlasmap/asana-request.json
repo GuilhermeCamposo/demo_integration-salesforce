@@ -1,0 +1,38 @@
+{
+  "opportunity": {
+    "new": [
+      {
+      "AccountId": "0015f000008ipYkAAI",
+      "HasOpportunityLineItem": true,
+      "Name": "fast opp",
+      "Amount": 20005000.00,
+      "Id": "0065f000002NcB9AAK"
+    }],
+    "old": [
+      {
+        "AccountId": "0015f000008ipYkAAI",
+        "HasOpportunityLineItem": true,
+        "Name": "fast opp",
+        "Amount": 20005000.00,
+        "Id": "0065f000002NcB9AAK"
+    }],
+    "userId": "0055f0000040M92AAE"
+  },
+  "account": {
+    "Id": "0015f000008ipYkAAI",
+    "Name": "Test Account",
+    "AccountNumber": "2432423"
+  },
+  "lineItems": [
+    {
+    "Id": "00k5f00000YICmnAAH",
+    "Name": "fast opp GenWatt Diesel 1000kW",
+    "Quantity": 200.0
+  },
+    {
+      "Id": "00k5f00000YICmoAAH",
+      "Name": "fast opp GenWatt Diesel 10kW",
+      "Quantity": 1.0
+    }
+  ]
+}

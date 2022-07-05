@@ -1,0 +1,27 @@
+{
+  "new": [
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v53.0/sobjects/Opportunity/0065f000002NcB9AAK"
+      },
+      "Amount": 20005000.00,
+      "AccountId": "0018Z00002aVISiQAO",
+      "Name": "fast opp",
+      "Id": "0068Z00001WlUfKQAV"
+    }
+  ],
+  "old": [
+    {
+      "attributes": {
+        "type": "Opportunity",
+        "url": "/services/data/v53.0/sobjects/Opportunity/0065f000002NcB9AAK"
+      },
+      "Amount": 20005000.00,
+      "AccountId": "0018Z00002aVISiQAO",
+      "Name": "fast opp",
+      "Id": "0068Z00001WlUfKQAV"
+    }
+  ],
+  "userId": "0055f0000040M92AAE"
+}

@@ -1,0 +1,9 @@
+{
+  "attributes": {
+    "type": "Account",
+    "url": "/services/data/v52.0/sobjects/Account/0018Z00002aVISiQAO"
+  },
+  "Id": "0018Z00002aVISiQAO",
+  "Name": "My First Account",
+  "AccountNumber": "0001"
+}

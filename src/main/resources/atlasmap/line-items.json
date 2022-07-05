@@ -1,0 +1,20 @@
+[
+  {
+    "attributes": {
+      "type": "OpportunityLineItem",
+      "url": "/services/data/v52.0/sobjects/OpportunityLineItem/00k8Z00001SMpqvQAD"
+    },
+    "Id": "00k8Z00001SMpqvQAD",
+    "Name": "Opp Test with OCP GenWatt Gasoline 2000kW",
+    "Quantity": 2.0
+  },
+  {
+    "attributes": {
+      "type": "OpportunityLineItem",
+      "url": "/services/data/v52.0/sobjects/OpportunityLineItem/00k8Z00001SM1IPQA1"
+    },
+    "Id": "00k8Z00001SM1IPQA1",
+    "Name": "Opp Test with OCP GenWatt Diesel 1000kW",
+    "Quantity": 2.0
+  }
+]
