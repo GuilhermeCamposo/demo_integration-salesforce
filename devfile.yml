@@ -1,0 +1,76 @@
+schemaVersion: 2.1.0
+metadata:
+  name: quarkus-quickstart
+  namespace: opentlc-mgr-devspaces
+components:
+  - attributes:
+      app.kubernetes.io/name: tools
+      che-theia.eclipse.org/vscode-extensions:
+        - 'relative:extension/resources/github_com/redhat-developer/devspaces-vscode-extensions/releases/download/7_44-che-assets/vscode-quarkus-1.7.0-437.vsix'
+        - 'relative:extension/resources/github_com/redhat-developer/devspaces-vscode-extensions/releases/download/7_44-che-assets/java-0.82.0-369.vsix'
+        - 'relative:extension/resources/github_com/redhat-developer/devspaces-vscode-extensions/releases/download/7_44-che-assets/vscode-microprofile-0.1.1-48.vsix'
+        - 'relative:extension/resources/github_com/redhat-developer/devspaces-vscode-extensions/releases/download/7_44-che-assets/vscode-java-debug-0.26.0.vsix'
+        - 'relative:extension/resources/open-vsx_org/api/vscjava/vscode-java-test/0_28_1/file/vscjava.vscode-java-test-0.28.1.vsix'
+      che-theia.eclipse.org/vscode-preferences:
+        java.server.launchMode: Standard
+    container:
+      args:
+        - sh
+        - '-c'
+        - '${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}'
+      endpoints:
+        - exposure: none
+          name: debug
+          protocol: tcp
+          targetPort: 5005
+        - exposure: public
+          name: hello-greeting-endpoint
+          path: /hello/greeting/devspaces-user
+          protocol: http
+          targetPort: 8080
+      env:
+        - name: QUARKUS_HTTP_HOST
+          value: 0.0.0.0
+        - name: PLUGIN_REMOTE_ENDPOINT_EXECUTABLE
+          value: /remote-endpoint/plugin-remote-endpoint
+        - name: THEIA_PLUGINS
+          value: 'local-dir:///plugins/sidecars/tools'
+        - name: CHE_DASHBOARD_URL
+          value: 'https://devspaces.apps.cluster-rkg9x.rkg9x.sandbox1480.opentlc.com'
+        - name: CHE_PLUGIN_REGISTRY_URL
+          value: 'https://devspaces.apps.cluster-rkg9x.rkg9x.sandbox1480.opentlc.com/plugin-registry/v3'
+        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
+          value: 'http://plugin-registry.openshift-operators.svc:8080/v3'
+      image: 'registry.redhat.io/devspaces/udi-rhel8@sha256:d55549aad15742f6f7310da0c7abc1e65dd5d3ad2e3efb8fbf414cf91b9efac7'
+      memoryLimit: 4G
+      mountSources: true
+      sourceMapping: /projects
+      volumeMounts:
+        - name: m2
+          path: /home/user/.m2
+        - name: remote-endpoint
+          path: /remote-endpoint
+        - name: plugins
+          path: /plugins
+    name: tools
+  - name: m2
+    volume:
+      size: 1G
+commands:
+  - exec:
+      commandLine: mvn package
+      component: tools
+      group:
+        isDefault: true
+        kind: build
+      workingDir: '${PROJECTS_ROOT}/quarkus-quickstarts/getting-started'
+    id: 1-package
+  - exec:
+      commandLine: 'mvn compile quarkus:dev'
+      component: tools
+      group:
+        isDefault: true
+        kind: run
+      label: Start Development mode (Hot reload + debug)
+      workingDir: '${PROJECTS_ROOT}/quarkus-quickstarts/getting-started'
+    id: 2-startdev

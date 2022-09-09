@@ -118,8 +118,8 @@ Trigger rhi_demo_opportunity on Opportunity (after insert,after update,after del
 }
 ----
 
-The $3SCALE_PROJECT_URL will look like: https://salesforce-webhook-ingestor-product-3scale-apicast-staging.apps.domain/opportunities.
-Do not forget the '/opportunities' path.
+The *$3SCALE_PROJECT_URL* will look like: https://salesforce-webhook-ingestor-product-3scale-apicast-staging.apps.domain/opportunities.
+Do not forget the `/opportunities`  path.
 
 
 === Add the URL to Remote Site Settings
