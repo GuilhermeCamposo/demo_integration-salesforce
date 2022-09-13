@@ -58,7 +58,7 @@ spec:
           envFrom:
             - secretRef:
                 name: salesforce-secret
-          image: quay.io/gcamposo/salesforce-webhook-ingestor:1.0.5
+          image: quay.io/gcamposo/salesforce-webhook-ingestor:1.0.6
           livenessProbe:
             httpGet:
               path: /q/health/live
