@@ -18,10 +18,6 @@ public class APIRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception{
 
-        JsonPathExpression jpl = new JsonPathExpression("$.records");
-        jpl.setWriteAsString(true);
-        jpl.setResultType(String.class);
-
         restConfiguration().bindingMode(RestBindingMode.off);
 
         onException(Exception.class)
@@ -30,51 +26,71 @@ public class APIRoute extends RouteBuilder {
         .log(LoggingLevel.ERROR,"${exception.message}")
         .setBody(simple("${exception.message} "));
 
-        rest("/opportunities")
-            .post()
+        rest("/")
+            .get("/tracing")
+                .to("direct:get-tracing")
+            .post("/opportunities")
                 .consumes("application/json")
-                .route()
-                    .routeId("opportunityPost")
-                    .convertBodyTo(String.class)
-                    .setProperty("trigger", simple("${body}"))
-                    .log("Trigger  -> ${exchangeProperty.trigger}")
-                    .setProperty("accountId", jsonpath("$.new[0].AccountId"))
-                    .setProperty("opportunityId", jsonpath("$.new[0].Id"))
-                    //GET Account Info
-                    .removeHeaders("*")
-                    .setBody(constant(""))
-                    .setHeader("q", simple("{{sf.query.account}}='${exchangeProperty.accountId}'"))
-                    .to("salesforce:raw?format=JSON&rawMethod=GET&rawQueryParameters=q&rawPath={{sf.url.path}}")
-                    .setProperty("account", jpl)
-                    .log("Account  -> ${exchangeProperty.account}")
-                    //GET line Items Info
-                    .removeHeaders("*")
-                    .setBody(constant(""))
-                    .setHeader("q", simple("{{sf.query.lineItems}}='${exchangeProperty.opportunityId}'"))
-                    .to("salesforce:raw?format=JSON&rawMethod=GET&rawQueryParameters=q&rawPath={{sf.url.path}}")
-                    .setProperty("line-items", jpl)
-                    .log("Line Items  -> ${exchangeProperty.account}")
-                    //POST enriched request to Asana Adapter
-                    .to("micrometer:counter:get_account_details")
-                    .process(new Processor() {
-                        @Override
-                        public void process(Exchange exchange) throws Exception {
-                            Map<String, Object> docs = new HashMap<String, Object> ();
-                            docs.put(TRIGGER_ID, exchange.getProperty("trigger"));
-                            docs.put(ACCOUNT_ID, exchange.getProperty("account"));
-                            docs.put(LINE_ITEMS_ID, exchange.getProperty("line-items"));
+                .to("direct:post-opportunities");
 
-                            exchange.getIn().setBody(docs);
-                        }
-                    })
-                    .to("atlasmap:atlasmap-mapping.adm")
-                    .log("Sending -> ${body}")
-                    .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
-                    .to("{{asana.adapter.url}}/asanaAdapter")
-        .endRest();
+        getTracing();
+        postOpportunitiesRoute();
 
     }
 
+    private void getTracing(){
+
+        from("direct:get-tracing")
+        .to("{{asana.adapter.url}}/tracing")
+        .log("trace sent to asana-adapter");
+
+    }
+
+    private void postOpportunitiesRoute(){
+
+        JsonPathExpression jpl = new JsonPathExpression("$.records");
+        jpl.setWriteAsString(true);
+        jpl.setResultType(String.class);
+
+        from("direct:post-opportunities")
+        .routeId("postOpportunity")
+        .convertBodyTo(String.class)
+        .setProperty("trigger", simple("${body}"))
+        .log("Trigger  -> ${exchangeProperty.trigger}")
+        .setProperty("accountId", jsonpath("$.new[0].AccountId"))
+        .setProperty("opportunityId", jsonpath("$.new[0].Id"))
+        //GET Account Info
+        .removeHeaders("*")
+        .setBody(constant(""))
+        .setHeader("q", simple("{{sf.query.account}}='${exchangeProperty.accountId}'"))
+        .to("salesforce:raw?format=JSON&rawMethod=GET&rawQueryParameters=q&rawPath={{sf.url.path}}")
+        .setProperty("account", jpl)
+        .log("Account  -> ${exchangeProperty.account}")
+        //GET line Items Info
+        .removeHeaders("*")
+        .setBody(constant(""))
+        .setHeader("q", simple("{{sf.query.lineItems}}='${exchangeProperty.opportunityId}'"))
+        .to("salesforce:raw?format=JSON&rawMethod=GET&rawQueryParameters=q&rawPath={{sf.url.path}}")
+        .setProperty("line-items", jpl)
+        .log("Line Items  -> ${exchangeProperty.account}")
+        //POST enriched request to Asana Adapter
+        .to("micrometer:counter:get_account_details")
+        .process(new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                Map<String, Object> docs = new HashMap<String, Object> ();
+                docs.put(TRIGGER_ID, exchange.getProperty("trigger"));
+                docs.put(ACCOUNT_ID, exchange.getProperty("account"));
+                docs.put(LINE_ITEMS_ID, exchange.getProperty("line-items"));
+
+                exchange.getIn().setBody(docs);
+            }
+        })
+        .to("atlasmap:atlasmap-mapping.adm")
+        .log("Sending -> ${body}")
+        .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+        .to("{{asana.adapter.url}}/asanaAdapter");
+    }
 
 
 }
