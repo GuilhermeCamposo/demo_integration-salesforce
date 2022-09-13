@@ -41,7 +41,7 @@ public class APIRoute extends RouteBuilder {
     private void getTracing(){
 
         from("direct:get-tracing")
-        .to("{{asana.adapter.url}}/tracing")
+        .to("{{asana.adapter.url}}/tracing?bridgeEndpoint=true")
         .log("trace sent to asana-adapter");
 
     }
