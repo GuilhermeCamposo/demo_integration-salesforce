@@ -1,0 +1,5 @@
+{
+  "account" : $exchange.properties.account,
+  "lineItems": $exchange.properties.line-items,
+  "opportunity": $exchange.properties.trigger
+}
